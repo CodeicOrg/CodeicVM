@@ -484,8 +484,13 @@ struct lua_Debug {
 * SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
 ******************************************************************************/
 
-/*API for CodeicVM*/
-int lua_main (int argc, char **argv);
-lua_State* createState();
+/*API for CodeicVM*/ 
+#define CODEICVM
+#ifdef CODEICVM
+int lua_main(int argc, char **argv); 
+lua_State* codeicvm_createState(); 
+int codeicvm_execute(lua_State*L,const char*command,int len);
+void codeicvm_close(lua_State *L);
+#endif
 
 #endif

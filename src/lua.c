@@ -611,8 +611,24 @@ int lua_main (int argc, char **argv) {
   return (result && status == LUA_OK) ? EXIT_SUCCESS : EXIT_FAILURE;
 }
 
-lua_State* createState()
+lua_State* codeicvm_createState()
 {
-  return luaL_newstate();  /* create state */
+  lua_State *L = luaL_newstate();  /* create state */
+  luaL_openlibs(L);
+  return L;
 }
 
+/*
+return error.
+*/
+int codeicvm_execute(lua_State *L,const char*command,int len)
+{
+  int error = luaL_loadbuffer(L,command,len,"line") || lua_pcall(L,0,0,0);
+  int s = lua_gettop(L);
+  return error;
+}
+
+void codeicvm_close(lua_State *L)
+{
+  lua_close(L);
+}
