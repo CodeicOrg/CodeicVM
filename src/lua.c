@@ -623,9 +623,9 @@ return error.
 */
 int codeicvm_execute(lua_State *L,const char*command,int len)
 {
-  int error = luaL_loadbuffer(L,command,len,"line") || lua_pcall(L,0,0,0);
-  int s = lua_gettop(L);
-  return error;
+  //int error = luaL_loadbuffer(L,command,len,"line") || lua_pcall(L,0,0,0);
+  dostring(L,command,"line");
+  return 0;
 }
 
 void codeicvm_close(lua_State *L)
